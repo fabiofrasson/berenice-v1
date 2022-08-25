@@ -13,7 +13,7 @@ int main()
     printf("\t\tBem Vindo ao Mercadinho da Berenice!\t\t\n");
     printf("\t\tSegue a tabela com os produtos comercializados neste local:\n");
     printf("\n\t\t\t\tCodigo\t\tItem\t\tPreco\n");
-    printf("\t\t\t\t1\t\tPao de Forma\tR$7.50\n");
+    printf("\t\t\t\t1\t\tPao de Forma\tR$7.50\n")
     printf("\t\t\t\t2\t\tPao de Centeio\tR$8.69\n");
     printf("\t\t\t\t3\t\tBroa de Milho\tR$5.00\n");
     printf("\t\t\t\t4\t\tSonho\t\tR$4.50\n");
