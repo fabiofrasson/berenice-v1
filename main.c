@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 int main()
+
 {
     float forma = 7.50, centeio = 8.69, broa = 5.00, sonho = 4.50, tubaina = 3.25, valorUnitario, subtotal, valorTroco, parcelas, valorParcela; // Atribuicao de Valores para os produtos
     int opcao, quantidade; // Variavel para guardar o codigo do produto que o usuario vai comprar
