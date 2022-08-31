@@ -19,14 +19,17 @@ int main()
     printf("\t\t\t\t4\t\tSonho\t\tR$4.50\n");
     printf("\t\t\t\t5\t\tTubaina\t\tR$3.25\n\n\n");
     printf("--------------------------------------------------------------------------------\n");
+
     // Pergunta para o usuario qual o codigo do produto para realizar a compra
     printf("\nDigite um numero referente ao codigo de 1 a 6 para selecionar um dos produtos: \n");
     scanf("%d", &opcao);
     getchar();
 
-    printf("\nAgora, digite a quantidade desejada: \n");
-    scanf("%i", &quantidade);
-    getchar();
+    if(opcao < 1 || opcao > 6)
+    {
+        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+        return 0;
+    }
 
     switch(opcao)
     {
@@ -49,37 +52,38 @@ int main()
         break;
     }
 
+    printf("\nAgora, digite a quantidade desejada: \n");
+    scanf("%i", &quantidade);
+    getchar();
+
+    if(quantidade < 1)
+    {
+        printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");
+        return 0;
+    }
+
     subtotal = quantidade * valorUnitario;
 
     printf("\nO subtotal e: R$ %.2f\n", subtotal);
 
     printf("\n\nQual seria a forma de pagamento?\n");
-    printf("\n\t\t\t\tCodigo\t\tForma\t\tVariacao\n");
-    printf("\t\t\t\t1\t\tA vista\t\t-10%\n");
+    printf("\n\t\t\t\tCodigo\t\tForma\t\tVariacao (%%)\n");
+    printf("\t\t\t\t1\t\tA vista\t\t- 10%\n");
     printf("\t\t\t\t2\t\tA prazo\t\t+ 5%\n");
 
     printf("\nDigite a forma desejada: \n");
     scanf("%i", &opcao);
     getchar();
 
-    if(opcao == 'S' || opcao =='s')
-    {
-        subtotal -= subtotal * 0.1;
-    }
-    else if(opcao =='N' || opcao =='n')
-    {
-        subtotal += subtotal * 0.05;
-    }
-
-    printf("\nO total e R$ %.2f", subtotal);
-
     if(opcao == 1)
     {
+        subtotal -= subtotal * 0.1;
+        printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nVoce precisa de troco? (S/N)\n");
         scanf("\n%c", &troco);
         getchar();
 
-        if(troco == 'S')
+        if(troco == 'S' || troco == 's')
         {
             printf("\nTroco para quanto?\n");
             scanf("\n%f", &valorTroco);
@@ -89,19 +93,31 @@ int main()
 
             printf("Aqui vai o seu troco: R$ %.2f", volta);
         }
-        else if(troco == 'N')
+        else if(troco == 'N' || troco == 'n')
         {
             printf("Troco nao e necessario.");
+        }
+        else
+        {
+            printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+            return 0;
         }
     }
     else if(opcao == 2)
     {
+        subtotal += subtotal * 0.05;
+        printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nEm quantas parcelas gostaria de pagar? \n");
         scanf("%f", &parcelas);
 
         valorParcela = subtotal / parcelas;
 
         printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela);
+    }
+    else
+    {
+        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+        return 0;
     }
 
     printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n");
