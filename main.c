@@ -25,7 +25,7 @@ int main()
     scanf("%d", &opcao);
     getchar();
 
-    if(opcao < 1 || opcao > 6)
+    if(opcao < 1 || opcao > 5)
     {
         printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
         return 0;
