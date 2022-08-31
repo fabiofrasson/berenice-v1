@@ -10,8 +10,8 @@ int main()
 
     // Printando a tabela de produtos no Terminal
     printf("--------------------------------------------------------------------------------\n");
-    printf("\t\tBem Vindo ao Mercadinho da Berenice!\t\t\n");
-    printf("\t\tSegue a tabela com os produtos comercializados neste local:\n");
+    printf("\t\t\t\tBem Vindo ao Mercadinho da Berenice!\t\t\n");
+    printf("\t\t\tSiga a tabela com os produtos comercializados neste local:\n");
     printf("\n\t\t\t\tCodigo\t\tItem\t\tPreco\n");
     printf("\t\t\t\t1\t\tPao de Forma\tR$7.50\n");
     printf("\t\t\t\t2\t\tPao de Centeio\tR$8.69\n");
