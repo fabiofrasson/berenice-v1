@@ -4,9 +4,9 @@
 
 int main()
 {
-    float forma = 7.50, centeio = 8.69, broa = 5.00, sonho = 4.50, tubaina = 3.25, valorUnitario, subtotal, valorTroco, parcelas, valorParcela; // Atribuicao de Valores para os produtos
-    int opcao, quantidade; // Variavel para guardar o codigo do produto que o usuario vai comprar
-    char troco;
+    float forma = 7.50, centeio = 8.69, broa = 5.00, sonho = 4.50, tubaina = 3.25, valorUnitario, subtotal, valorTroco, parcelas, valorParcela; // Atribuicao de Valores para os produtos.
+    int opcao, quantidade; // Variavel para guardar o codigo do produto que o usuario vai comprar.
+    char troco; // Variavel para demonstrar qual será o troco do cliente, se necessário.
 
     // Printando a tabela de produtos no Terminal
     printf("--------------------------------------------------------------------------------\n");
@@ -31,7 +31,7 @@ int main()
         return 0;
     }
 
-    switch(opcao)
+    switch(opcao) 
     {
     case 1:
         valorUnitario = forma;
@@ -52,7 +52,7 @@ int main()
         break;
     }
 
-    printf("\nAgora, digite a quantidade desejada: \n");
+    printf("\nAgora, digite a quantidade desejada: \n"); // Selecionar a quantidade desejada do produto, que foi anteriormente escolhida pelo cliente. 
     scanf("%i", &quantidade);
     getchar();
 
@@ -64,7 +64,7 @@ int main()
 
     subtotal = quantidade * valorUnitario;
 
-    printf("\nO subtotal e: R$ %.2f\n", subtotal);
+    printf("\nO subtotal e: R$ %.2f\n", subtotal); 
 
     printf("\n\nQual seria a forma de pagamento?\n");
     printf("\n\t\t\t\tCodigo\t\tForma\t\tVariacao (%%)\n");
@@ -107,12 +107,12 @@ int main()
     {
         subtotal += subtotal * 0.05;
         printf("\nO total e R$ %.2f", subtotal);
-        printf("\n\nEm quantas parcelas gostaria de pagar? \n");
+        printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
 
         valorParcela = subtotal / parcelas;
 
-        printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela);
+        printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela); //Valor de cada parcela.
     }
     else
     {
