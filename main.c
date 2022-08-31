@@ -69,21 +69,21 @@ int main()
     scanf("%i", &opcao);
     getchar();
 
-    if(opcao == 1)
+    if(opcao == 1)//Se o pagamento for a vista
     {
-        if(subtotal > 0 && subtotal <= 50.0)
+        if(subtotal > 0 && subtotal <= 50.0)//E a quantidade do subtotal for entre 0 e 50
         {
-            subtotal -= subtotal * 0.05;
+            subtotal -= subtotal * 0.05;//Desconto de mais 5% aplicado no valor final
         }
-        else if(subtotal > 50.0 && subtotal < 100.0)
+        else if(subtotal > 50.0 && subtotal < 100.0)//Se a quantidade do subtotal for entre 50 e 100
         {
-            subtotal -= subtotal * 0.1;
+            subtotal -= subtotal * 0.1;//Desconto a mais de 1% aplicado no valor final
         }
-        else if(subtotal > 100.0)
+        else if(subtotal > 100.0)//Se o valor do subtotal for maior que 100
         {
-            subtotal -= subtotal * 0.18;
+            subtotal -= subtotal * 0.18;//Desconto a mais no subtotal de 18%
         }
-        else
+        else//Opcao invalida eh printado na tela
         {
             printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
             return 0;
@@ -113,38 +113,38 @@ int main()
             return 0;
         }
     }
-    else if(opcao == 2)
+    else if(opcao == 2)//Se pagamento parcelado for selecionado
     {
         printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
 
-        if(parcelas < 1)
+        if(parcelas < 1)//E a quantidade de parcelas for menor que 1
         {
-            printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");
-            return 0;
+            printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");//Printa mensagem de erro
+            return 0;//E finaliza o programa
         }
-        else if(parcelas >= 1 && parcelas < 3)
+        else if(parcelas >= 1 && parcelas < 3)//Se as parcelas for entre 1 ou menor que 3
         {
-            subtotal += subtotal * 0.05;
+            subtotal += subtotal * 0.05;//Acrescimo no subtotal de mais %5
         }
-        else if(parcelas > 3)
+        else if(parcelas > 3)//Se a quantidade de parcelas for maior que 3
         {
-            subtotal += subtotal * 0.08;
+            subtotal += subtotal * 0.08;//Acrescimo no subtotal de mais %8
         }
 
 
-        valorParcela = subtotal / parcelas;
+        valorParcela = subtotal / parcelas;//Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas
 
         printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela); //Valor de cada parcela.
     }
     else
     {
-        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");//Mensagem de erro
         return 0;
     }
 
-    printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n");
+    printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n");//Mensagem do fim do programa
 
-    return 0;
+    return 0;//Fim do Programa
 }
