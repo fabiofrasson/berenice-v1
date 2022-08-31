@@ -21,7 +21,7 @@ int main()
     printf("--------------------------------------------------------------------------------\n");
 
     // Pergunta para o usuario qual o codigo do produto para realizar a compra
-    printf("\nDigite um numero referente ao codigo de 1 a 6 para selecionar um dos produtos: \n");
+    printf("\nDigite um numero referente ao codigo de 1 a 5 para selecionar um dos produtos: \n");
     scanf("%d", &opcao);
     getchar();
 
