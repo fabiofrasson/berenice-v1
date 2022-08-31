@@ -31,7 +31,7 @@ int main()
         return 0;
     }
 
-    switch(opcao) 
+    switch(opcao)
     {
     case 1:
         valorUnitario = forma;
@@ -52,24 +52,18 @@ int main()
         break;
     }
 
-    printf("\nAgora, digite a quantidade desejada: \n"); // Selecionar a quantidade desejada do produto, que foi anteriormente escolhida pelo cliente. 
+    printf("\nAgora, digite a quantidade desejada: \n"); // Selecionar a quantidade desejada do produto, que foi anteriormente escolhida pelo cliente.
     scanf("%i", &quantidade);
     getchar();
 
-    if(quantidade < 1)
-    {
-        printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");
-        return 0;
-    }
-
     subtotal = quantidade * valorUnitario;
 
-    printf("\nO subtotal e: R$ %.2f\n", subtotal); 
+    printf("\nO subtotal e: R$ %.2f\n", subtotal);
 
     printf("\n\nQual seria a forma de pagamento?\n");
-    printf("\n\t\t\t\tCodigo\t\tForma\t\tVariacao (%%)\n");
-    printf("\t\t\t\t1\t\tA vista\t\t- 10%\n");
-    printf("\t\t\t\t2\t\tA prazo\t\t+ 5%\n");
+    printf("\n\t\t\t\tCodigo\t\tForma\n");
+    printf("\t\t\t\t1\t\tA vista\n");
+    printf("\t\t\t\t2\t\tA prazo\n");
 
     printf("\nDigite a forma desejada: \n");
     scanf("%i", &opcao);
@@ -77,7 +71,23 @@ int main()
 
     if(opcao == 1)
     {
-        subtotal -= subtotal * 0.1;
+        if(subtotal > 0 && subtotal <= 50.0)
+        {
+            subtotal -= subtotal * 0.05;
+        }
+        else if(subtotal > 50.0 && subtotal < 100.0)
+        {
+            subtotal -= subtotal * 0.1;
+        }
+        else if(subtotal > 100.0)
+        {
+            subtotal -= subtotal * 0.18;
+        }
+        else
+        {
+            printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+            return 0;
+        }
         printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nVoce precisa de troco? (S/N)\n");
         scanf("\n%c", &troco);
@@ -105,10 +115,24 @@ int main()
     }
     else if(opcao == 2)
     {
-        subtotal += subtotal * 0.05;
         printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
+
+        if(parcelas < 1)
+        {
+            printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");
+            return 0;
+        }
+        else if(parcelas >= 1 && parcelas < 3)
+        {
+            subtotal += subtotal * 0.05;
+        }
+        else if(parcelas > 3)
+        {
+            subtotal += subtotal * 0.08;
+        }
+
 
         valorParcela = subtotal / parcelas;
 
