@@ -79,7 +79,8 @@ int main()
         {
             subtotal -= subtotal * 0.1;//Desconto a mais de 1% aplicado no valor final
         }
-        else if(subtotal > 100.0)//Se o valor do subtotal for maior que 100
+
+        else if(subtotal >= 100.0)
         {
             subtotal -= subtotal * 0.18;//Desconto a mais no subtotal de 18%
         }
