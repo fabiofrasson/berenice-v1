@@ -46,7 +46,7 @@ int main()//Comeco do programa
         valorUnitario = sonho;//Atribui dentro do case 4 o valor atruibuido a variavel sonho para a variavel coringa valor unitario
         break;//Comando para impedir que o proximo case seja executado na sequencia do codigo
     case 5:
-        valorUnitario = tubainaç//Atribui dentro do case 5 o valor atruibuido a variavel tubaina para a variavel coringa valor unitario
+        valorUnitario = tubaina;//Atribui dentro do case 5 o valor atruibuido a variavel tubaina para a variavel coringa valor unitario
         break;//Comando para impedir que o proximo case seja executado na sequencia do codigo
     default:
         break;//Comando para impedir que o proximo case seja executado na sequencia do codigo
