@@ -5,7 +5,7 @@
 int main()
 {
     float forma = 7.50, centeio = 8.69, broa = 5.00, sonho = 4.50, tubaina = 3.25, valorUnitario, subtotal, valorTroco, parcelas, valorParcela; // Atribuicao de Valores para os produtos.
-    int opcao, quantidade; // Variavel para guardar o codigo do produto que o usuario vai comprar.
+    int opcao, quantidade; // Variavel para guardar o codigo do produto que o usuario vai comprar e a quantidade.
     char troco; // Variavel para demonstrar qual será o troco do cliente, se necessário.
 
     // Printando a tabela de produtos no Terminal
@@ -25,6 +25,7 @@ int main()
     scanf("%d", &opcao);
     getchar();
 
+    // Validação para certificar que a opção é válida
     if(opcao < 1 || opcao > 5)
     {
         printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
@@ -56,6 +57,7 @@ int main()
     scanf("%i", &quantidade);
     getchar();
 
+    // Cálculo do subtotal
     subtotal = quantidade * valorUnitario;
 
     printf("\nO subtotal e: R$ %.2f\n", subtotal);
@@ -69,22 +71,21 @@ int main()
     scanf("%i", &opcao);
     getchar();
 
-    if(opcao == 1)//Se o pagamento for a vista
+    if(opcao == 1)// Se o pagamento for a vista
     {
-        if(subtotal > 0 && subtotal <= 50.0)//E a quantidade do subtotal for entre 0 e 50
+        if(subtotal > 0 && subtotal <= 50.0)// Se subtotal for entre 0 e 50
         {
-            subtotal -= subtotal * 0.05;//Desconto de mais 5% aplicado no valor final
+            subtotal -= subtotal * 0.05;//Desconto de 5% aplicado ao valor final
         }
-        else if(subtotal > 50.0 && subtotal < 100.0)//Se a quantidade do subtotal for entre 50 e 100
+        else if(subtotal > 50.0 && subtotal < 100.0)//Se o subtotal for entre 50 e 100
         {
-            subtotal -= subtotal * 0.1;//Desconto a mais de 1% aplicado no valor final
+            subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
         }
-
         else if(subtotal >= 100.0)
         {
-            subtotal -= subtotal * 0.18;//Desconto a mais no subtotal de 18%
+            subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
         }
-        else//Opcao invalida eh printado na tela
+        else // Caso opção inválida, fim do progrmama
         {
             printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
             return 0;
@@ -94,7 +95,7 @@ int main()
         scanf("\n%c", &troco);
         getchar();
 
-        if(troco == 'S' || troco == 's')
+        if(troco == 'S' || troco == 's') // Validação caso a resposta seja S ou s para troco
         {
             printf("\nTroco para quanto?\n");
             scanf("\n%f", &valorTroco);
@@ -104,7 +105,7 @@ int main()
 
             printf("Aqui vai o seu troco: R$ %.2f", volta);
         }
-        else if(troco == 'N' || troco == 'n')
+        else if(troco == 'N' || troco == 'n') // Validação caso a resposta seja N ou n para troco
         {
             printf("Troco nao e necessario.");
         }
@@ -114,38 +115,38 @@ int main()
             return 0;
         }
     }
-    else if(opcao == 2)//Se pagamento parcelado for selecionado
+    else if(opcao == 2)// Se pagamento parcelado for selecionado
     {
         printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
 
-        if(parcelas < 1)//E a quantidade de parcelas for menor que 1
+        if(parcelas < 1)// Se a quantidade de parcelas for menor que 1
         {
             printf("\nQuantidade invalida, reinicie o programa e tente novamente\n");//Printa mensagem de erro
             return 0;//E finaliza o programa
         }
-        else if(parcelas >= 1 && parcelas < 3)//Se as parcelas for entre 1 ou menor que 3
+        else if(parcelas >= 1 && parcelas < 3)//Se a quantidade de parcelas for entre 1 e 3
         {
-            subtotal += subtotal * 0.05;//Acrescimo no subtotal de mais %5
+            subtotal += subtotal * 0.05;// Acrescimo no subtotal de 5%
         }
-        else if(parcelas > 3)//Se a quantidade de parcelas for maior que 3
+        else if(parcelas > 3)// Se a quantidade de parcelas for maior que 3
         {
-            subtotal += subtotal * 0.08;//Acrescimo no subtotal de mais %8
+            subtotal += subtotal * 0.08;// Acrescimo no subtotal de 8%
         }
 
 
-        valorParcela = subtotal / parcelas;//Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas
+        valorParcela = subtotal / parcelas;// Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas (considerando o acréscimo)
 
         printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela); //Valor de cada parcela.
     }
     else
     {
-        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");//Mensagem de erro
+        printf("\nOpcao invalida, reinicie o programa e tente novamente\n"); // Mensagem de erro
         return 0;
     }
 
-    printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n");//Mensagem do fim do programa
+    printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n"); // Mensagem do fim do programa
 
-    return 0;//Fim do Programa
+    return 0; // Fim do Programa
 }
