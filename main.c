@@ -32,6 +32,7 @@ int main()
         return 0;
     }
 
+    // valorUnitário entra como variável coringa para ser utilizada na atribuição do valor dos produtos, utilizada em outras partes no código
     switch(opcao)
     {
     case 1:
