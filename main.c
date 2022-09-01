@@ -117,7 +117,6 @@ int main()
     }
     else if(opcao == 2)// Se pagamento parcelado for selecionado
     {
-        printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
 
