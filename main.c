@@ -25,13 +25,6 @@ int main()
     scanf("%d", &opcao);
     getchar();
 
-    // Validação para certificar que a opção é válida
-    if(opcao < 1 || opcao > 5)
-    {
-        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
-        return 0;
-    }
-
     // valorUnitário entra como variável coringa para ser utilizada na atribuição do valor dos produtos, utilizada em outras partes no código
     switch(opcao)
     {
@@ -51,6 +44,8 @@ int main()
         valorUnitario = tubaina;
         break;
     default:
+        printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
+        return 0;
         break;
     }
 
@@ -82,14 +77,9 @@ int main()
         {
             subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
         }
-        else if(subtotal >= 100.0)
+        else
         {
             subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
-        }
-        else // Caso opção inválida, fim do progrmama
-        {
-            printf("\nOpcao invalida, reinicie o programa e tente novamente\n");
-            return 0;
         }
         printf("\nO total e R$ %.2f", subtotal);
         printf("\n\nVoce precisa de troco? (S/N)\n");
@@ -104,7 +94,7 @@ int main()
 
             float volta = valorTroco - subtotal;
 
-            printf("Aqui vai o seu troco: R$ %.2f", volta);
+            printf("\nAqui vai o seu troco: R$ %.2f", volta);
         }
         else if(troco == 'N' || troco == 'n') // Validação caso a resposta seja N ou n para troco
         {
@@ -130,14 +120,14 @@ int main()
         {
             subtotal += subtotal * 0.05;// Acrescimo no subtotal de 5%
         }
-        else if(parcelas > 3)// Se a quantidade de parcelas for maior que 3
+        else // Se a quantidade de parcelas for maior que 3
         {
             subtotal += subtotal * 0.08;// Acrescimo no subtotal de 8%
         }
 
-
         valorParcela = subtotal / parcelas;// Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas (considerando o acréscimo)
 
+        printf("\nSelecionado: %.0f parcela(s).", parcelas);
         printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela); //Valor de cada parcela.
     }
     else
