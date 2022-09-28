@@ -21,7 +21,8 @@ int main()
     // Ordenação dos itens do subtotal
     // ordenaItensSubtotal(subtotal);
 
-    /*
+    //aaa
+    //
     // Selecionar a forma de pagamento
     printf("\n\nQual seria a forma de pagamento?\n");
     printf("\n\t\t\t\tCodigo\t\tForma\n");
