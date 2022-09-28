@@ -8,13 +8,15 @@ float *ordenaItensSubtotal(float *arraySubtotal);
 float *subtotal;
 float *subtotalOrdenado;
 void mostraSubtotal(float *arraySubtotalOrdenado);
+int selecionaFormaPagamento();
 
 int main()
 {
     float valorTroco, parcelas, valorParcela;
     char troco;
-    int opcao;
+    int formaPagamento;
 
+    // Mostrar o menu
     mostraMenu();
 
     // Cálculo do subtotal
@@ -25,17 +27,9 @@ int main()
 
     mostraSubtotal(subtotalOrdenado);
 
+    formaPagamento = selecionaFormaPagamento();
+
     /*
-    // Selecionar a forma de pagamento
-    printf("\n\nQual seria a forma de pagamento?\n");
-    printf("\n\t\t\t\tCodigo\t\tForma\n");
-    printf("\t\t\t\t1\t\tA vista\n");
-    printf("\t\t\t\t2\t\tA prazo\n");
-
-    printf("\nDigite a forma desejada: \n");
-    scanf("%i", &opcao);
-    getchar();
-
     // Função para calcular o total com base na opção de pagamento
     if(opcao == 1)// Se o pagamento for a vista
     {
@@ -259,6 +253,32 @@ void mostraSubtotal(float *arraySubtotalOrdenado)
     {
         printf("\nItem %d: R$ %.2f", (i+1), arraySubtotalOrdenado[i]);
     }
+}
 
+int selecionaFormaPagamento()
+{
+    int opcao;
+
+    // Selecionar a forma de pagamento
+    printf("\n\nQual seria a forma de pagamento?\n");
+    printf("\n\t\t\t\tCodigo\t\tForma\n");
+    printf("\t\t\t\t1\t\tA vista\n");
+    printf("\t\t\t\t2\t\tA prazo\n");
+
+    printf("\nDigite a forma desejada: \n");
+    scanf("%i", &opcao);
+    getchar();
+
+    while(opcao != 1 && opcao != 2)
+    {
+        printf("\nOpcao invalida; digite uma forma de pagamento valida:\n");
+        printf("\n\t\t\t\tCodigo\t\tForma\n");
+        printf("\t\t\t\t1\t\tA vista\n");
+        printf("\t\t\t\t2\t\tA prazo\n");
+        scanf("%i", &opcao);
+        getchar();
+    }
+
+    return opcao;
 }
 
