@@ -1,19 +1,17 @@
-// Declaracao de Bibliotecas para linguagem C
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 void mostraMenu();
-float[] escolheItemMenu();
-float[] ordenaItensSubtotal(float [] arraySubtotal);
+float *escolheItemMenu();
+float *ordenaItensSubtotal(float *arraySubtotal);
+float *subtotal;
 
 int main()
 {
-
-    float[] precosItens = {7.5, 8.69, 5.0, 4.5, 3.25};
-    float[5] subtotal;
-    float valorTroco, parcelas, valorParcela; // Atribuicao de Valores para os produtos.
-    char troco; // Variavel para demonstrar qual será o troco do cliente, se necessário.
+    float valorTroco, parcelas, valorParcela;
+    char troco;
+    int opcao;
 
     mostraMenu();
 
@@ -21,8 +19,9 @@ int main()
     subtotal = escolheItemMenu();
 
     // Ordenação dos itens do subtotal
-    ordenaItensSubtotal(subtotal);
+    // ordenaItensSubtotal(subtotal);
 
+    /*
     // Selecionar a forma de pagamento
     printf("\n\nQual seria a forma de pagamento?\n");
     printf("\n\t\t\t\tCodigo\t\tForma\n");
@@ -36,11 +35,11 @@ int main()
     // Função para calcular o total com base na opção de pagamento
     if(opcao == 1)// Se o pagamento for a vista
     {
-        if(subtotal > 0 && subtotal <= 50.0)// Se subtotal for entre 0 e 50
+        if(subtotal > 0 && subtotal <= 50) // Se subtotal for entre 0 e 50
         {
-            subtotal -= subtotal * 0.05;//Desconto de 5% aplicado ao valor final
+            subtotal -= subtotal * 0.05; //Desconto de 5% aplicado ao valor final
         }
-        else if(subtotal > 50.0 && subtotal < 100.0)//Se o subtotal for entre 50 e 100
+        else if(subtotal > 50 && subtotal < 100)//Se o subtotal for entre 50 e 100
         {
             subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
         }
@@ -104,109 +103,132 @@ int main()
     }
 
     printf("\n\nObrigado pela sua compra, tenha um otimo dia!\n"); // Mensagem do fim do programa
+    */
 
-    return 0; // Fim do Programa
+    printf("\nFim do programa");
+    return 0;
 }
 
 void mostraMenu()
 {
-    // Printando a tabela de produtos no Terminal
-    printf("--------------------------------------------------------------------------------\n");
-    printf("\t\t\t\tBem Vindo ao Mercadinho da Berenice!\t\t\n");
-    printf("\t\t\tSiga a tabela com os produtos comercializados neste local:\n");
+    printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+ +-+-+  ");
+    printf("\n\t\t\t\t\t |M|e|r|c|a|d|o| |d|a|  ");
+    printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+-+-+-+-+");
+    printf("\n\t\t\t\t\t       |B|e|r|e|n|i|c|e|");
+    printf("\n\t\t\t\t\t       +-+-+-+-+-+-+-+-+");
+
+    printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n");
     printf("\n\t\t\t\tCodigo\t\tItem\t\tPreco\n");
     printf("\t\t\t\t1\t\tPao de Forma\tR$ 7.50\n");
     printf("\t\t\t\t2\t\tPao de Centeio\tR$ 8.69\n");
     printf("\t\t\t\t3\t\tBroa de Milho\tR$ 5.00\n");
     printf("\t\t\t\t4\t\tSonho\t\tR$ 4.50\n");
     printf("\t\t\t\t5\t\tTubaina\t\tR$ 3.25\n\n\n");
-    printf("--------------------------------------------------------------------------------\n");
+    //printf("--------------------------------------------------------------------------------\n");
 }
 
-float[] escolheItemMenu()
+float *escolheItemMenu()
 {
-    int resposta = 0, opcao; // Variavel para guardar o codigo do produto que o usuario vai comprar e a quantidade.
+    int resposta = 0, opcao, contador = 0;
     float quantidade;
-    float[5] subtotalUnitario;
-    char[] produtos = "Pao de Forma,Pao de Centeio,Broa de Milho,Sonho,Tubaina";
-    char[] delimitador = ",";
+    static float subtotalUnitario[5];
+    float precosItens[] = {7.5, 8.69, 5.0, 4.5, 3.25};
 
     while(resposta != 1)
     {
-        // Pergunta para o usuario qual o codigo do produto para realizar a compra
-        printf("\nDigite um codigo de 1 a 5 para selecionar um dos produtos: \n");
+        if(contador == 0)
+        {
+            printf("\nDigite um codigo de 1 a 5 para selecionar um dos produtos: \n");
+            contador++;
+        }
+        else
+        {
+            printf("\nDigite um codigo de 1 a 5 para selecionar um dos produtos ou 0 para sair: \n");
+        }
+
         scanf("%d", &opcao);
         getchar();
 
-        while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5)
+        while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
         {
             printf("\nOpcao invalida! Digite uma opcao valida:\n");
             scanf("%d", &opcao);
             getchar();
         }
 
+        if(opcao == 0)
+        {
+            break;
+        }
+
         if(opcao == 1)
         {
-            printf("\nProduto escolhido: %s", produtos[0]);
+            printf("\nProduto escolhido: Pao de Forma\n");
         }
         else if(opcao == 2)
         {
-            printf("\nProduto escolhido: %s", produtos[1]);
+            printf("\nProduto escolhido: Pao de Centeio\n");
         }
         else if(opcao == 3)
         {
-            printf("\nProduto escolhido: %s", produtos[2]);
+            printf("\nProduto escolhido: Broa de Milho\n");
         }
         else if(opcao == 4)
         {
-            printf("\nProduto escolhido: %s", produtos[3]);
+            printf("\nProduto escolhido: Sonho\n");
         }
         else
         {
-            printf("\nProduto escolhido: %s", produtos[4]);
+            printf("\nProduto escolhido: Tubaina\n");
         }
 
-        printf("\nAgora, digite a quantidade desejada: \n"); // Selecionar a quantidade desejada do produto, que foi anteriormente escolhida pelo cliente.
-        scanf("%f", &quantidade);
-        getchar();
-
-        while(quantidade <= 0)
+        if(opcao != 0)
         {
-            printf("\nDigite uma quantidade maior que 0:\n"); // Selecionar a quantidade desejada do produto, que foi anteriormente escolhida pelo cliente.
+            printf("\nAgora, digite a quantidade desejada: \n");
             scanf("%f", &quantidade);
             getchar();
-        }
 
-        switch(opcao)
-        {
-        case 1:
-            subtotalUnitario[0] = precosItens[0] * quantidade;
-            printf("\nQuantidade: %f | Subtotal do item: %f", quantidade, subtotalUnitario[0]);
-            break;
-        case 2:
-            subtotalUnitario[1] = precosItens[1] * quantidade;
-            printf("\nQuantidade: %f | Subtotal do item: %f", quantidade, subtotalUnitario[1]);
-            break;
-        case 3:
-            subtotalUnitario[2] = precosItens[2] * quantidade;
-            printf("\nQuantidade: %f | Subtotal do item: %f", quantidade, subtotalUnitario[2]);
-            break;
-        case 4:
-            subtotalUnitario[3] = precosItens[3] * quantidade;
-            printf("\nQuantidade: %f | Subtotal do item: %f", quantidade, subtotalUnitario[3]);
-            break;
-        case 5:
-            subtotalUnitario[4] = precosItens[4] * quantidade;
-            printf("\nQuantidade: %f | Subtotal do item: %f", quantidade, subtotalUnitario[4]);
-            break;
-        default:
-            break;
-        }
+            while(quantidade <= 0)
+            {
+                printf("\nDigite uma quantidade maior que 0:\n");
+                scanf("%f", &quantidade);
+                getchar();
+            }
 
+            switch(opcao)
+            {
+            case 1:
+                subtotalUnitario[0] = precosItens[0] * quantidade;
+                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[0]);
+                break;
+            case 2:
+                subtotalUnitario[1] = precosItens[1] * quantidade;
+                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[1]);
+                break;
+            case 3:
+                subtotalUnitario[2] = precosItens[2] * quantidade;
+                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[2]);
+                break;
+            case 4:
+                subtotalUnitario[3] = precosItens[3] * quantidade;
+                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[3]);
+                break;
+            case 5:
+                subtotalUnitario[4] = precosItens[4] * quantidade;
+                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[4]);
+                break;
+            default:
+                break;
+            }
+        }
     }
+
+    return subtotalUnitario;
 }
 
+/*
 float[] ordenaItensSubtotal(float [] arraySubtotal)
 {
 
 }
+*/
