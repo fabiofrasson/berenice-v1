@@ -7,6 +7,7 @@ float *escolheItemMenu();
 float *ordenaItensSubtotal(float *arraySubtotal);
 float *subtotal;
 float *subtotalOrdenado;
+void mostraSubtotal(float *arraySubtotalOrdenado);
 
 int main()
 {
@@ -22,6 +23,7 @@ int main()
     // Ordenação dos itens do subtotal
     subtotalOrdenado = ordenaItensSubtotal(subtotal);
 
+    mostraSubtotal(subtotalOrdenado);
 
     /*
     // Selecionar a forma de pagamento
@@ -247,5 +249,16 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
     }
 
     return arraySubtotal;
+}
+
+void mostraSubtotal(float *arraySubtotalOrdenado)
+{
+    printf("\nO subtotal é:\n");
+
+    for(int i = 0; i < 5; i++)
+    {
+        printf("\nItem %d: R$ %.2f", (i+1), arraySubtotalOrdenado[i]);
+    }
+
 }
 
