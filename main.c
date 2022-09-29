@@ -241,17 +241,17 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
     return arraySubtotal;
 }
 
-int *numeroItensOrdenados(int *arrayNumeroItens) {
-    return arrayNumeroItens;
-}
-
 void mostraSubtotal(float *arraySubtotalOrdenado)
 {
     printf("\nO subtotal é:\n");
 
     for(int i = 0; i < 5; i++)
     {
-        printf("\nItem %d: R$ %.2f", ordemProdutos[i], arraySubtotalOrdenado[i]);
+        if(arraySubtotalOrdenado[i] >= 0.01)
+        {
+            printf("\nItem %d: R$ %.2f", ordemProdutos[i], arraySubtotalOrdenado[i]);
+        }
+
     }
 }
 
