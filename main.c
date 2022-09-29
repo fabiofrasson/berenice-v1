@@ -12,6 +12,8 @@ int selecionaFormaPagamento();
 // void calculaTotalPorFormaPagamento(int opcao);
 int ordemProdutos[] = {1, 2, 3, 4, 5};
 
+void limpaTela();
+
 int main()
 {
     float valorTroco, parcelas, valorParcela;
@@ -21,16 +23,16 @@ int main()
     // Mostrar o menu
     mostraMenu();
 
-    // CÃ¡lculo do subtotal
+    // Cálculo do subtotal
     subtotal = escolheItemMenu();
 
-    // OrdenaÃ§Ã£o dos itens do subtotal
+    // Ordenação dos itens do subtotal
     subtotalOrdenado = ordenaItensSubtotal(subtotal);
 
     // Mostrar o subtotal
     mostraSubtotal(subtotalOrdenado);
 
-    // Oferecer as opÃ§Ãµes de pagamento
+    // Oferecer as opções de pagamento
     formaPagamento = selecionaFormaPagamento();
 
     // calculaTotalPorFormaPagamento(formaPagamento);
@@ -41,7 +43,7 @@ int main()
         scanf("\n%c", &troco);
         getchar();
 
-        if(troco == 'S' || troco == 's') // ValidaÃ§Ã£o caso a resposta seja S ou s para troco
+        if(troco == 'S' || troco == 's') // Validação caso a resposta seja S ou s para troco
         {
             printf("\nTroco para quanto?\n");
             scanf("\n%f", &valorTroco);
@@ -51,7 +53,7 @@ int main()
 
             printf("\nAqui vai o seu troco: R$ %.2f", volta);
         }
-        else if(troco == 'N' || troco == 'n') // ValidaÃ§Ã£o caso a resposta seja N ou n para troco
+        else if(troco == 'N' || troco == 'n') // Validação caso a resposta seja N ou n para troco
         {
             printf("Troco nao e necessario.");
         }
@@ -63,7 +65,7 @@ int main()
     }
     else if(opcao == 2)// Se pagamento parcelado for selecionado
     {
-        printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //ApÃ³s selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuÃ¡rio o numero de parcelas desejado.
+        printf("\n\nEm quantas parcelas gostaria de pagar? \n"); //Após selecionar a forma de pagamento 2 que seria a prazo, pergunta para o usuário o numero de parcelas desejado.
         scanf("%f", &parcelas);
 
         if(parcelas < 1)// Se a quantidade de parcelas for menor que 1
@@ -80,7 +82,7 @@ int main()
             subtotal += subtotal * 0.08;// Acrescimo no subtotal de 8%
         }
 
-        valorParcela = subtotal / parcelas;// Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas (considerando o acrÃ©scimo)
+        valorParcela = subtotal / parcelas;// Valor da parcela eh igual ao subtotal dividido pela quantidade de parcelas (considerando o acréscimo)
 
         printf("\nSelecionado: %.0f parcela(s).", parcelas);
         printf("\nO valor de cada parcela sera de: R$ %.2f\n", valorParcela); //Valor de cada parcela.
@@ -113,7 +115,6 @@ void mostraMenu()
     printf("\t\t\t\t3\t\tBroa de Milho\tR$ 5.00\n");
     printf("\t\t\t\t4\t\tSonho\t\tR$ 4.50\n");
     printf("\t\t\t\t5\t\tTubaina\t\tR$ 3.25\n\n\n");
-    //printf("--------------------------------------------------------------------------------\n");
 }
 
 float *escolheItemMenu()
@@ -243,7 +244,7 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
 
 void mostraSubtotal(float *arraySubtotalOrdenado)
 {
-    printf("\nO subtotal Ã©:\n");
+    printf("\nO subtotal é:\n");
 
     for(int i = 0; i < 5; i++)
     {
@@ -284,7 +285,7 @@ int selecionaFormaPagamento()
 /*
 void calculaTotalPorFormaPagamento(int opcao)
 {
-    // FunÃ§Ã£o para calcular o total com base na opÃ§Ã£o de pagamento
+    // Função para calcular o total com base na opção de pagamento
     if(opcao == 1)// Se o pagamento for a vista
     {
         if(subtotal > 0 && subtotal <= 50) // Se subtotal for entre 0 e 50
@@ -302,3 +303,13 @@ void calculaTotalPorFormaPagamento(int opcao)
         printf("\nO total e R$ %.2f", subtotal);
     }
 */
+
+void limpaTela() {
+    #ifdef __linux__
+        system.("clear");
+    #elif _WIN32
+        system("cls");
+    #else
+
+    #endif
+}
