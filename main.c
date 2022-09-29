@@ -9,6 +9,8 @@ float *subtotal;
 float *subtotalOrdenado;
 void mostraSubtotal(float *arraySubtotalOrdenado);
 int selecionaFormaPagamento();
+// void calculaTotalPorFormaPagamento(int opcao);
+int ordemProdutos[] = {1, 2, 3, 4, 5};
 
 int main()
 {
@@ -25,27 +27,16 @@ int main()
     // Ordenação dos itens do subtotal
     subtotalOrdenado = ordenaItensSubtotal(subtotal);
 
+    // Mostrar o subtotal
     mostraSubtotal(subtotalOrdenado);
 
+    // Oferecer as opções de pagamento
     formaPagamento = selecionaFormaPagamento();
 
+    // calculaTotalPorFormaPagamento(formaPagamento);
+
     /*
-    // Função para calcular o total com base na opção de pagamento
-    if(opcao == 1)// Se o pagamento for a vista
-    {
-        if(subtotal > 0 && subtotal <= 50) // Se subtotal for entre 0 e 50
-        {
-            subtotal -= subtotal * 0.05; //Desconto de 5% aplicado ao valor final
-        }
-        else if(subtotal > 50 && subtotal < 100)//Se o subtotal for entre 50 e 100
-        {
-            subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
-        }
-        else
-        {
-            subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
-        }
-        printf("\nO total e R$ %.2f", subtotal);
+
         printf("\n\nVoce precisa de troco? (S/N)\n");
         scanf("\n%c", &troco);
         getchar();
@@ -226,7 +217,7 @@ float *escolheItemMenu()
 
 float  * ordenaItensSubtotal(float * arraySubtotal)
 {
-    float nroAuxiliar;
+    float nroAuxiliar, nroAuxiliar2;
     int contador;
 
     for(contador = 1; contador < 5; contador++)
@@ -236,13 +227,22 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
             if(arraySubtotal[i] < arraySubtotal[i + 1])
             {
                 nroAuxiliar = arraySubtotal[i];
+                nroAuxiliar2 = ordemProdutos[i];
+
                 arraySubtotal[i] = arraySubtotal[i + 1];
+                ordemProdutos[i] = ordemProdutos[i + 1];
+
                 arraySubtotal[i + 1] = nroAuxiliar;
+                ordemProdutos[i + 1] = nroAuxiliar2;
             }
         }
     }
 
     return arraySubtotal;
+}
+
+int *numeroItensOrdenados(int *arrayNumeroItens) {
+    return arrayNumeroItens;
 }
 
 void mostraSubtotal(float *arraySubtotalOrdenado)
@@ -251,7 +251,7 @@ void mostraSubtotal(float *arraySubtotalOrdenado)
 
     for(int i = 0; i < 5; i++)
     {
-        printf("\nItem %d: R$ %.2f", (i+1), arraySubtotalOrdenado[i]);
+        printf("\nItem %d: R$ %.2f", ordemProdutos[i], arraySubtotalOrdenado[i]);
     }
 }
 
@@ -281,4 +281,24 @@ int selecionaFormaPagamento()
 
     return opcao;
 }
-
+/*
+void calculaTotalPorFormaPagamento(int opcao)
+{
+    // Função para calcular o total com base na opção de pagamento
+    if(opcao == 1)// Se o pagamento for a vista
+    {
+        if(subtotal > 0 && subtotal <= 50) // Se subtotal for entre 0 e 50
+        {
+            subtotal -= subtotal * 0.05; //Desconto de 5% aplicado ao valor final
+        }
+        else if(subtotal > 50 && subtotal < 100)//Se o subtotal for entre 50 e 100
+        {
+            subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
+        }
+        else
+        {
+            subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
+        }
+        printf("\nO total e R$ %.2f", subtotal);
+    }
+*/
