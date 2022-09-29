@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 
+void saudacao();
 void mostraMenu();
 float *escolheItemMenu();
 float *ordenaItensSubtotal(float *arraySubtotal);
@@ -16,10 +18,12 @@ void limpaTela();
 
 int main()
 {
+    setlocale(LC_ALL, "Portuguese");
     float valorTroco, parcelas, valorParcela;
     char troco;
     int formaPagamento;
 
+    saudacao();
     // Mostrar o menu
     mostraMenu();
 
@@ -103,22 +107,37 @@ int main()
     return 0;
 }
 
-void mostraMenu()
+void saudacao()
 {
+    printf("\t\t\t\t\tBem-vindo(a) ao...\n");
     printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+ +-+-+  ");
     printf("\n\t\t\t\t\t |M|e|r|c|a|d|o| |d|a|  ");
     printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+-+-+-+-+");
     printf("\n\t\t\t\t\t       |B|e|r|e|n|i|c|e|");
     printf("\n\t\t\t\t\t       +-+-+-+-+-+-+-+-+");
+}
 
-    printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n");
+void mostraMenu()
+{
+    printf("\n\n\t\t\tSelecione uma opcão:\n");
+    printf("\n\t\t\t\tCódigo\t\tAção\n");
+    printf("\t\t\t\t1\t\tCadastrar estoque\n");
+    printf("\t\t\t\t2\t\tVisualizar estoque\n");
+    printf("\t\t\t\t3\t\tRealizar venda\n");
+    printf("\t\t\t\t4\t\tSair\n\n\n");
+}
+
+/*
+menu produtos
+
+printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n");
     printf("\n\t\t\t\tCodigo\t\tItem\t\tPreco\n");
     printf("\t\t\t\t1\t\tPao de Forma\tR$ 7.50\n");
     printf("\t\t\t\t2\t\tPao de Centeio\tR$ 8.69\n");
     printf("\t\t\t\t3\t\tBroa de Milho\tR$ 5.00\n");
     printf("\t\t\t\t4\t\tSonho\t\tR$ 4.50\n");
     printf("\t\t\t\t5\t\tTubaina\t\tR$ 3.25\n\n\n");
-}
+*/
 
 float *escolheItemMenu()
 {
@@ -131,12 +150,12 @@ float *escolheItemMenu()
     {
         if(contador == 0)
         {
-            printf("\nDigite um codigo de 1 a 5 para selecionar um dos produtos: \n");
+            printf("\nDigite um código de 1 a 5 para selecionar um dos produtos: \n");
             contador++;
         }
         else
         {
-            printf("\nDigite um codigo de 1 a 5 para selecionar um dos produtos ou 0 para sair: \n");
+            printf("\nDigite um código de 1 a 5 para selecionar um dos produtos ou 0 para sair: \n");
         }
 
         scanf("%d", &opcao);
@@ -149,7 +168,7 @@ float *escolheItemMenu()
 
         while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
         {
-            printf("\nOpcao invalida! Digite uma opcao valida:\n");
+            printf("\nOpção inválida! Digite uma opção válida:\n");
             scanf("%d", &opcao);
             getchar();
 
@@ -161,11 +180,11 @@ float *escolheItemMenu()
 
         if(opcao == 1)
         {
-            printf("\nProduto escolhido: Pao de Forma\n");
+            printf("\nProduto escolhido: Pão de Fôrma\n");
         }
         else if(opcao == 2)
         {
-            printf("\nProduto escolhido: Pao de Centeio\n");
+            printf("\nProduto escolhido: Pão de Centeio\n");
         }
         else if(opcao == 3)
         {
@@ -177,7 +196,7 @@ float *escolheItemMenu()
         }
         else if(opcao == 5)
         {
-            printf("\nProduto escolhido: Tubaina\n");
+            printf("\nProduto escolhido: Tubaína\n");
         }
 
         if(opcao != 0)
@@ -252,7 +271,7 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
 
 void mostraSubtotal(float *arraySubtotalOrdenado)
 {
-    printf("\nO subtotal e:\n");
+    printf("\nO subtotal é:\n");
 
     for(int i = 0; i < 5; i++)
     {
@@ -270,9 +289,9 @@ int selecionaFormaPagamento()
 
     // Selecionar a forma de pagamento
     printf("\n\nQual seria a forma de pagamento?\n");
-    printf("\n\t\t\t\tCodigo\t\tForma\n");
-    printf("\t\t\t\t1\t\tA vista\n");
-    printf("\t\t\t\t2\t\tA prazo\n");
+    printf("\n\t\t\t\tCódigo\t\tForma\n");
+    printf("\t\t\t\t1\t\tÀ vista\n");
+    printf("\t\t\t\t2\t\tÀ prazo\n");
 
     printf("\nDigite a forma desejada: \n");
     scanf("%i", &opcao);
@@ -280,10 +299,10 @@ int selecionaFormaPagamento()
 
     while(opcao != 1 && opcao != 2)
     {
-        printf("\nOpcao invalida; digite uma forma de pagamento valida:\n");
-        printf("\n\t\t\t\tCodigo\t\tForma\n");
-        printf("\t\t\t\t1\t\tA vista\n");
-        printf("\t\t\t\t2\t\tA prazo\n");
+        printf("\nOpção inválida; digite uma forma de pagamento válida:\n");
+        printf("\n\t\t\t\tCódigo\t\tForma\n");
+        printf("\t\t\t\t1\t\tÀ vista\n");
+        printf("\t\t\t\t2\t\tÀ prazo\n");
         scanf("%i", &opcao);
         getchar();
     }
