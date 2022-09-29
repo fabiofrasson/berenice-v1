@@ -26,14 +26,17 @@ int main()
     // Cálculo do subtotal
     subtotal = escolheItemMenu();
 
-    // Ordenação dos itens do subtotal
-    subtotalOrdenado = ordenaItensSubtotal(subtotal);
+    if(subtotal[0] != 0.0 || subtotal[1] != 0.0 || subtotal[2] != 0.0 || subtotal[3] != 0.0 || subtotal[4] != 0.0)
+    {
+        // Ordenação dos itens do subtotal
+        subtotalOrdenado = ordenaItensSubtotal(subtotal);
 
-    // Mostrar o subtotal
-    mostraSubtotal(subtotalOrdenado);
+        // Mostrar o subtotal
+        mostraSubtotal(subtotalOrdenado);
 
-    // Oferecer as opções de pagamento
-    formaPagamento = selecionaFormaPagamento();
+        // Oferecer as opções de pagamento
+        formaPagamento = selecionaFormaPagamento();
+    }
 
     // calculaTotalPorFormaPagamento(formaPagamento);
 
@@ -139,16 +142,21 @@ float *escolheItemMenu()
         scanf("%d", &opcao);
         getchar();
 
+        if(opcao == 0)
+        {
+            break;
+        }
+
         while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
         {
             printf("\nOpcao invalida! Digite uma opcao valida:\n");
             scanf("%d", &opcao);
             getchar();
-        }
 
-        if(opcao == 0)
-        {
-            break;
+            if(opcao == 0)
+            {
+                break;
+            }
         }
 
         if(opcao == 1)
@@ -167,7 +175,7 @@ float *escolheItemMenu()
         {
             printf("\nProduto escolhido: Sonho\n");
         }
-        else
+        else if(opcao == 5)
         {
             printf("\nProduto escolhido: Tubaina\n");
         }
@@ -189,23 +197,23 @@ float *escolheItemMenu()
             {
             case 1:
                 subtotalUnitario[0] = precosItens[0] * quantidade;
-                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[0]);
+                printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[0]);
                 break;
             case 2:
                 subtotalUnitario[1] = precosItens[1] * quantidade;
-                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[1]);
+                printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[1]);
                 break;
             case 3:
                 subtotalUnitario[2] = precosItens[2] * quantidade;
-                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[2]);
+                printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[2]);
                 break;
             case 4:
                 subtotalUnitario[3] = precosItens[3] * quantidade;
-                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[3]);
+                printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[3]);
                 break;
             case 5:
                 subtotalUnitario[4] = precosItens[4] * quantidade;
-                printf("\nQuantidade: %.0f | Subtotal do item: %.2f\n", quantidade, subtotalUnitario[4]);
+                printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[4]);
                 break;
             default:
                 break;
@@ -244,7 +252,7 @@ float  * ordenaItensSubtotal(float * arraySubtotal)
 
 void mostraSubtotal(float *arraySubtotalOrdenado)
 {
-    printf("\nO subtotal é:\n");
+    printf("\nO subtotal e:\n");
 
     for(int i = 0; i < 5; i++)
     {
@@ -304,12 +312,13 @@ void calculaTotalPorFormaPagamento(int opcao)
     }
 */
 
-void limpaTela() {
-    #ifdef __linux__
-        system.("clear");
-    #elif _WIN32
-        system("cls");
-    #else
+void limpaTela()
+{
+#ifdef __linux__
+    system.("clear");
+#elif _WIN32
+    system("cls");
+#else
 
-    #endif
+#endif
 }
