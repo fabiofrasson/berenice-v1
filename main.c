@@ -5,7 +5,9 @@
 
 void saudacao();
 void mostraMenu();
-float *escolheItemMenu();
+int escolheItemMenu();
+
+// float *escolheItemMenu();
 float *ordenaItensSubtotal(float *arraySubtotal);
 float *subtotal;
 float *subtotalOrdenado;
@@ -19,24 +21,28 @@ void limpaTela();
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
+
     float valorTroco, parcelas, valorParcela;
     char troco;
     int formaPagamento;
 
     saudacao();
+
     // Mostrar o menu
     mostraMenu();
 
+    escolheItemMenu();
+
     // Cálculo do subtotal
-    subtotal = escolheItemMenu();
+    // subtotal = escolheItemMenu();
 
     if(subtotal[0] != 0.0 || subtotal[1] != 0.0 || subtotal[2] != 0.0 || subtotal[3] != 0.0 || subtotal[4] != 0.0)
     {
         // Ordenação dos itens do subtotal
-        subtotalOrdenado = ordenaItensSubtotal(subtotal);
+        //subtotalOrdenado = ordenaItensSubtotal(subtotal);
 
         // Mostrar o subtotal
-        mostraSubtotal(subtotalOrdenado);
+        //mostraSubtotal(subtotalOrdenado);
 
         // Oferecer as opções de pagamento
         formaPagamento = selecionaFormaPagamento();
@@ -109,7 +115,7 @@ int main()
 
 void saudacao()
 {
-    printf("\t\t\t\t\tBem-vindo(a) ao...\n");
+    printf("\t\t\t\t\tBem-vindo(a) ao\n");
     printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+ +-+-+  ");
     printf("\n\t\t\t\t\t |M|e|r|c|a|d|o| |d|a|  ");
     printf("\n\t\t\t\t\t +-+-+-+-+-+-+-+-+-+-+-+");
@@ -119,12 +125,51 @@ void saudacao()
 
 void mostraMenu()
 {
-    printf("\n\n\t\t\tSelecione uma opcão:\n");
-    printf("\n\t\t\t\tCódigo\t\tAção\n");
+    //printf("\n\n\n\t\t\t\t\t ---------\n");
+    //printf("\t\t\t\t\t| OPÇÕES |\n");
+    //printf("\t\t\t\t\t ---------\n");
+    printf("\n\n\n\t\t\t\tCódigo\t\tAção\n");
     printf("\t\t\t\t1\t\tCadastrar estoque\n");
     printf("\t\t\t\t2\t\tVisualizar estoque\n");
     printf("\t\t\t\t3\t\tRealizar venda\n");
     printf("\t\t\t\t4\t\tSair\n\n\n");
+}
+
+int escolheItemMenu()
+{
+    int resposta = 0;
+
+    printf("Selecione um código do menu acima para interagir com o sistema:\n");
+    scanf("%d", &resposta);
+
+    while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4)
+    {
+        limpaTela();
+
+        mostraMenu();
+
+        printf("Erro: Opção inválida. Por favor, digite uma opção válida:\n");
+        scanf("%d", &resposta);
+    }
+
+    if(resposta == 1)
+    {
+        printf("Opção 1 selecionada.");
+    }
+    else if(resposta == 2)
+    {
+        printf("Opção 2 selecionada.");
+    }
+    else if(resposta == 3)
+    {
+        printf("Opção 3 selecionada.");
+    }
+    else
+    {
+        printf("Opção 4 selecionada.");
+    }
+
+    return resposta;
 }
 
 /*
@@ -139,6 +184,7 @@ printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n"
     printf("\t\t\t\t5\t\tTubaina\t\tR$ 3.25\n\n\n");
 */
 
+/*
 float *escolheItemMenu()
 {
     int resposta = 0, opcao, contador = 0;
@@ -282,6 +328,7 @@ void mostraSubtotal(float *arraySubtotalOrdenado)
 
     }
 }
+*/
 
 int selecionaFormaPagamento()
 {
