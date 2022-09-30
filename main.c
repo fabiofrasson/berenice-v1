@@ -27,20 +27,20 @@
 
 // Métodos
 void saudacao();
-void mostraMenu();
-int escolheItemMenu();
-void mostraItensEstoque();
+void mostrarMenu();
+int escolherItemMenu();
+void mostrarItensEstoque();
 void cadastrarEstoque();
 void realizarVenda(); // ?
 void delay(int milliseconds);
 
-void limpaTela();
+void limparTela();
 
 // Arrays globais
-int estoqueItens[] = {10, 10, 10, 10, 10};
+int estoqueItens[] = {0, 0, 0, 0, 0};
 int ordemProdutos[] = {1, 2, 3, 4, 5};
 
-// float *escolheItemMenu();
+// float *escolherItemMenu();
 float *ordenaItensSubtotal(float *arraySubtotal);
 float *subtotal;
 float *subtotalOrdenado;
@@ -59,9 +59,9 @@ int main()
     saudacao();
 
     // Mostrar o menu
-    mostraMenu();
+    mostrarMenu();
 
-    int opcaoMenu = escolheItemMenu();
+    int opcaoMenu = escolherItemMenu();
 
     if(opcaoMenu == 1)
     {
@@ -69,11 +69,11 @@ int main()
     }
     else if(opcaoMenu == 2)
     {
-        //delay(500);
-        limpaTela();
-        //delay(500);
+        // delay(500);
+        // limparTela();
+        // delay(500);
 
-        mostraItensEstoque();
+        mostrarItensEstoque();
     }
     else if(opcaoMenu == 3)
     {
@@ -85,7 +85,7 @@ int main()
     }
 
     // Cálculo do subtotal
-    // subtotal = escolheItemMenu();
+    // subtotal = escolherItemMenu();
 
     if(subtotal[0] != 0.0 || subtotal[1] != 0.0 || subtotal[2] != 0.0 || subtotal[3] != 0.0 || subtotal[4] != 0.0)
     {
@@ -174,7 +174,7 @@ void saudacao()
     printf("\n\t\t\t\t\t       +-+-+-+-+-+-+-+-+");
 }
 
-void mostraMenu()
+void mostrarMenu()
 {
     printf("\n\n\n\t\t\t\tCódigo\t\tAção\n");
     printf("\t\t\t\t1\t\t%s\n", menuOpcao1);
@@ -183,7 +183,7 @@ void mostraMenu()
     printf("\t\t\t\t4\t\t%s\n\n\n", menuOpcao4);
 }
 
-int escolheItemMenu()
+int escolherItemMenu()
 {
     int resposta = 0;
 
@@ -192,9 +192,9 @@ int escolheItemMenu()
 
     while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4)
     {
-        limpaTela();
+        limparTela();
 
-        mostraMenu();
+        mostrarMenu();
 
         printf("Erro: Opção inválida. Por favor, digite uma opção válida:\n");
         scanf("%d", &resposta);
@@ -203,7 +203,7 @@ int escolheItemMenu()
     return resposta;
 }
 
-void mostraItensEstoque()
+void mostrarItensEstoque()
 {
     printf("\n\t\t\t\tItem (Código)\t\tNome do item\t\tValor (unidade)\t\tEstoque\n");
     printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
@@ -217,7 +217,7 @@ void cadastrarEstoque()
 {
     int opcao, quantidade;
 
-    mostraItensEstoque();
+    mostrarItensEstoque();
 
     printf("\n\nDigite o código do produto que deseja atualizar estoque:\n");
     scanf("%d", &opcao);
@@ -226,7 +226,7 @@ void cadastrarEstoque()
     {
         printf("\nCódigo de item inválido.\n");
 
-        mostraItensEstoque();
+        mostrarItensEstoque();
 
         printf("\nDigite um código de item válido:\n");
         scanf("%d", &opcao);
@@ -263,7 +263,7 @@ void cadastrarEstoque()
 
     estoqueItens[opcao - 1] += quantidade;
 
-    mostraItensEstoque();
+    mostrarItensEstoque();
 }
 
 /*
@@ -279,7 +279,7 @@ printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n"
 */
 
 /*
-float *escolheItemMenu()
+float *escolherItemMenu()
 {
     int resposta = 0, opcao, contador = 0;
     float quantidade;
@@ -483,7 +483,7 @@ void delay(int milliseconds)
         now = clock();
 }
 
-void limpaTela()
+void limparTela()
 {
 #ifdef __linux__
     system.("clear");
