@@ -22,7 +22,7 @@
 // Constantes dos preços dos produtos
 #define precoProduto1 7.85
 #define precoProduto2 8.69
-#define precoProduto3 5.00
+#define precoProduto3 5.0
 #define precoProduto4 4.5
 #define precoProduto5 3.25
 
@@ -436,12 +436,12 @@ void realizarVenda()
         }
 
         printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
-        scanf("%d" &retorno);
+        scanf("%d", &retorno);
 
         if(retorno == 1)
         {
             resposta = 0;
-            delay(1500;)
+            delay(1500);
         }
         else if(retorno == 2)
         {
@@ -452,12 +452,12 @@ void realizarVenda()
         {
             while(retorno != 1 && retorno != 2)
             {
-                printf("\nOpção inválida.\");
+                printf("\nOpção inválida.\n");
                        delay(1500);
                        limparTela();
 
                        printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
-                       scanf("%d" &retorno);
+                       scanf("%d", &retorno);
             }
         }
     }
