@@ -4,6 +4,7 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
+#include <stdbool.h>
 
 // Constantes das opções do menu
 #define menuOpcao1 "Cadastrar estoque"
@@ -31,16 +32,18 @@ void mostrarMenu();
 int escolherItemMenu();
 void mostrarItensEstoque();
 void cadastrarEstoque();
+bool verificarEstoque(int codProduto, int quant);
 void realizarVenda(); // ?
 void delay(int milliseconds);
 
 void limparTela();
 
 // Arrays globais
-int estoqueItens[] = {0, 0, 0, 0, 0};
+int estoqueItens[] = {10, 0, 0, 0, 0};
+int quantVendida[5];
 int ordemProdutos[] = {1, 2, 3, 4, 5};
+float subtotalUnitario[5];
 
-// float *escolherItemMenu();
 float *ordenaItensSubtotal(float *arraySubtotal);
 float *subtotal;
 float *subtotalOrdenado;
@@ -50,6 +53,8 @@ int selecionaFormaPagamento();
 
 int main()
 {
+    // Inserir while para o programa todo
+
     setlocale(LC_ALL, "Portuguese");
 
     float valorTroco, parcelas, valorParcela;
@@ -77,7 +82,7 @@ int main()
     }
     else if(opcaoMenu == 3)
     {
-        //printf("\n%s", opcao3);
+        realizarVenda();
     }
     else
     {
@@ -206,11 +211,26 @@ int escolherItemMenu()
 void mostrarItensEstoque()
 {
     printf("\n\t\t\t\tItem (Código)\t\tNome do item\t\tValor (unidade)\t\tEstoque\n");
-    printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
-    printf("\t\t\t\t2\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao2, precoProduto2, estoqueItens[1]);
-    printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
-    printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
-    printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
+    if(estoqueItens[0] > 0)
+    {
+        printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
+    }
+    if(estoqueItens[1] > 0)
+    {
+        printf("\t\t\t\t2\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao2, precoProduto2, estoqueItens[1]);
+    }
+    if(estoqueItens[2] > 0)
+    {
+        printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
+    }
+    if(estoqueItens[3] > 0)
+    {
+        printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
+    }
+    if(estoqueItens[4] > 0)
+    {
+        printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
+    }
 }
 
 void cadastrarEstoque()
@@ -266,121 +286,188 @@ void cadastrarEstoque()
     mostrarItensEstoque();
 }
 
-/*
-menu produtos
-
-printf("\n\n\t\t\tSegue a tabela com os produtos comercializados neste local:\n");
-    printf("\n\t\t\t\tCodigo\t\tItem\t\tPreco\n");
-    printf("\t\t\t\t1\t\tPao de Forma\tR$ 7.50\n");
-    printf("\t\t\t\t2\t\tPao de Centeio\tR$ 8.69\n");
-    printf("\t\t\t\t3\t\tBroa de Milho\tR$ 5.00\n");
-    printf("\t\t\t\t4\t\tSonho\t\tR$ 4.50\n");
-    printf("\t\t\t\t5\t\tTubaina\t\tR$ 3.25\n\n\n");
-*/
-
-/*
-float *escolherItemMenu()
+bool verificarEstoque(int codProd, int quant)
 {
-    int resposta = 0, opcao, contador = 0;
-    float quantidade;
-    static float subtotalUnitario[5];
-    float precosItens[] = {7.5, 8.69, 5.0, 4.5, 3.25};
+    if(quant <= estoqueItens[codProd - 1])
+    {
+        estoqueItens[codProd - 1] -= quant;
+    }
+    else
+    {
+        printf("\nEstoque insuficiente para venda!");
+        return false;
+    }
 
-    while(resposta != 1)
+    return true;
+}
+
+void realizarVenda()
+{
+    int resposta = 0, opcao, retorno, contador = 0;
+    float quantidade;
+
+    while((resposta != 1 && estoqueItens[0] > 0) || estoqueItens[1] > 0 || estoqueItens[2] > 0 || estoqueItens[3] > 0 || estoqueItens[4] > 0)
     {
         if(contador == 0)
         {
-            printf("\nDigite um código de 1 a 5 para selecionar um dos produtos: \n");
+            mostrarItensEstoque();
             contador++;
         }
         else
         {
-            printf("\nDigite um código de 1 a 5 para selecionar um dos produtos ou 0 para sair: \n");
+            limparTela();
+
+            delay(500);
+
+            mostrarItensEstoque();
         }
+
+        printf("\nDigite um código de 1 a 5 para selecionar um produto ou 0 para sair: \n");
 
         scanf("%d", &opcao);
         getchar();
 
-        if(opcao == 0)
-        {
-            break;
-        }
-
         while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
         {
-            printf("\nOpção inválida! Digite uma opção válida:\n");
+            printf("\nOpção inválida!\n");
+
+            delay(1500);
+
+            limparTela();
+
+            mostrarItensEstoque();
+            printf("\nDigite uma opção válida:\n");
             scanf("%d", &opcao);
             getchar();
-
-            if(opcao == 0)
-            {
-                break;
-            }
         }
 
         if(opcao == 1)
         {
-            printf("\nProduto escolhido: Pão de Fôrma\n");
+            printf("\nProduto escolhido: %s\n", produtoOpcao1);
         }
         else if(opcao == 2)
         {
-            printf("\nProduto escolhido: Pão de Centeio\n");
+            printf("\nProduto escolhido: %s\n", produtoOpcao2);
         }
         else if(opcao == 3)
         {
-            printf("\nProduto escolhido: Broa de Milho\n");
+            printf("\nProduto escolhido: %s\n", produtoOpcao3);
         }
         else if(opcao == 4)
         {
-            printf("\nProduto escolhido: Sonho\n");
+            printf("\nProduto escolhido: %s\n", produtoOpcao4);
         }
         else if(opcao == 5)
         {
-            printf("\nProduto escolhido: Tubaína\n");
+            printf("\nProduto escolhido: %s\n", produtoOpcao5);
+        }
+        else
+        {
+            printf("\nRetornando ao menu principal.");
+            break;
         }
 
-        if(opcao != 0)
+        printf("\nAgora, digite a quantidade desejada: \n");
+        scanf("%f", &quantidade);
+        getchar();
+
+        while(quantidade < 0)
         {
-            printf("\nAgora, digite a quantidade desejada: \n");
+            printf("\nQuantidade inválida ou insuficiente. Digite uma quantidade válida:\n");
             scanf("%f", &quantidade);
             getchar();
+        }
 
-            while(quantidade <= 0)
-            {
-                printf("\nDigite uma quantidade maior que 0:\n");
-                scanf("%f", &quantidade);
-                getchar();
-            }
-
+        if(quantidade != 0 && quantidade <= estoqueItens[opcao - 1])
+        {
             switch(opcao)
             {
             case 1:
-                subtotalUnitario[0] = precosItens[0] * quantidade;
+                quantVendida[opcao - 1] += quantidade;
+                estoqueItens[opcao - 1] -= quantidade;
+                subtotalUnitario[opcao - 1] = precoProduto1 * quantidade;
                 printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[0]);
+                delay(1500);
                 break;
             case 2:
-                subtotalUnitario[1] = precosItens[1] * quantidade;
+                quantVendida[opcao - 1] += quantidade;
+                estoqueItens[opcao - 1] -= quantidade;
+                subtotalUnitario[opcao - 1] = precoProduto2 * quantidade;
                 printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[1]);
+                delay(1500);
                 break;
             case 3:
-                subtotalUnitario[2] = precosItens[2] * quantidade;
+                quantVendida[opcao - 1] += quantidade;
+                estoqueItens[opcao - 1] -= quantidade;
+                subtotalUnitario[opcao - 1] = precoProduto3 * quantidade;
                 printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[2]);
+                delay(1500);
                 break;
             case 4:
-                subtotalUnitario[3] = precosItens[3] * quantidade;
+                quantVendida[opcao - 1] += quantidade;
+                estoqueItens[opcao - 1] -= quantidade;
+                subtotalUnitario[opcao - 1] = precoProduto4 * quantidade;
                 printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[3]);
+                delay(1500);
                 break;
             case 5:
-                subtotalUnitario[4] = precosItens[4] * quantidade;
+                quantVendida[opcao - 1] += quantidade;
+                estoqueItens[opcao - 1] -= quantidade;
+                subtotalUnitario[opcao - 1] = precoProduto5 * quantidade;
                 printf("\nQuantidade: %.0f | Subtotal do item: R$ %.2f\n", quantidade, subtotalUnitario[4]);
+                delay(1500);
                 break;
             default:
                 break;
             }
         }
+        else
+        {
+            printf("\nQuantidade digitada é superior à quantidade em estoque.\n");
+            delay(1000);
+        }
+
+        if(quantidade != 0 && estoqueItens[0] == 0 && estoqueItens[1] == 0 && estoqueItens[2] == 0 && estoqueItens[3] == 0 && estoqueItens[4] < 0)
+        {
+            delay(1500);
+            printf("\nTodo o estoque da loja foi vendido. Retornando ao menu principal.");
+            resposta = 1;
+            delay(1500);
+        }
+
+        printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
+        scanf("%d" &retorno);
+
+        if(retorno == 1)
+        {
+            resposta = 0;
+            delay(1500;)
+        }
+        else if(retorno == 2)
+        {
+            printf("\nRetornando ao menu principal.\n");
+            break;
+        }
+        else
+        {
+            while(retorno != 1 && retorno != 2)
+            {
+                printf("\nOpção inválida.\");
+                       delay(1500);
+                       limparTela();
+
+                       printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
+                       scanf("%d" &retorno);
+            }
+        }
     }
 
-    return subtotalUnitario;
+
+}
+
+/*
+float *escolherItemMenu()
+{
 }
 
 float  * ordenaItensSubtotal(float * arraySubtotal)
