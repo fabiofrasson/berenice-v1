@@ -211,26 +211,11 @@ int escolherItemMenu()
 void mostrarItensEstoque()
 {
     printf("\n\t\t\t\tItem (Código)\t\tNome do item\t\tValor (unidade)\t\tEstoque\n");
-    if(estoqueItens[0] > 0)
-    {
-        printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
-    }
-    if(estoqueItens[1] > 0)
-    {
-        printf("\t\t\t\t2\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao2, precoProduto2, estoqueItens[1]);
-    }
-    if(estoqueItens[2] > 0)
-    {
-        printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
-    }
-    if(estoqueItens[3] > 0)
-    {
-        printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
-    }
-    if(estoqueItens[4] > 0)
-    {
-        printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
-    }
+    printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
+    printf("\t\t\t\t2\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao2, precoProduto2, estoqueItens[1]);
+    printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
+    printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
+    printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
 }
 
 void cadastrarEstoque()
@@ -453,11 +438,11 @@ void realizarVenda()
             while(retorno != 1 && retorno != 2)
             {
                 printf("\nOpção inválida.\n");
-                       delay(1500);
-                       limparTela();
+                delay(1500);
+                limparTela();
 
-                       printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
-                       scanf("%d", &retorno);
+                printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
+                scanf("%d", &retorno);
             }
         }
     }
