@@ -40,9 +40,13 @@ void visualizarItensVisualizarEstoque();
 void cadastrarEstoque();
 bool verificarEstoque(int codProduto, int quant);
 void realizarVenda(); // ?
+void exibeSubtotalOrdenado(float arraySubtotal[]);
+void ordenaItensSubtotal(float arraySubtotal[]);
 void delay(int milliseconds);
 void limparTela();
 void transicao();
+
+// void calculaTotalPorFormaPagamento(int opcao);
 
 // Variáveis globais
 bool retornaInicio = true;
@@ -51,14 +55,8 @@ bool retornaInicio = true;
 int estoqueItens[] = {10, 10, 10, 10, 10};
 int quantVendida[5];
 int ordemProdutos[] = {1, 2, 3, 4, 5};
+int arrayOrdenacaoProdutos[] = {1, 2, 3, 4, 5};
 float subtotalUnitario[5];
-
-float *ordenaItensSubtotal(float *arraySubtotal);
-float *subtotal;
-float *subtotalOrdenado;
-void mostraSubtotal(float *arraySubtotalOrdenado);
-int selecionaFormaPagamento();
-// void calculaTotalPorFormaPagamento(int opcao);
 
 int main()
 {
@@ -75,6 +73,7 @@ int main()
         // Mostrar o menu
         mostrarMenu();
         int opcaoMenu = escolherItemMenu();
+        transicao();
 
         if(opcaoMenu == 1) // Cadastrar estoque
         {
@@ -273,7 +272,7 @@ void realizarVenda()
         {
             if(estoqueItens[0] == 0 && estoqueItens[1] == 0 && estoqueItens[2] == 0 && estoqueItens[3] == 0 && estoqueItens[4] == 0)
             {
-                printf("\nQuantidade em estoque insuficiente para venda. Chamando Menu!!\n");
+                printf("\nQuantidade em estoque insuficiente para venda. Voltando ao menu principal.\n");
                 delay(1000);
                 break;
             }
@@ -285,10 +284,7 @@ void realizarVenda()
             }
             else
             {
-                limparTela();
-
-                delay(500);
-
+                transicao();
                 visualizarItens();
             }
 
@@ -297,13 +293,11 @@ void realizarVenda()
             scanf("%d", &opcao);
             getchar();
 
-            while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
+            while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5)
             {
                 printf("\nOpção inválida!\n");
 
-                delay(1500);
-
-                limparTela();
+                transicao();
 
                 visualizarItens();
                 printf("\nDigite uma opção válida:\n");
@@ -343,37 +337,41 @@ void realizarVenda()
             }
             else if(opcao == 0 && contador != 0)
             {
-                printf("\nOpção inválida. Deseja tentar novamente a venda? S/N:\n");
-                scanf("%c", &resposta);
-                getchar();
+                while(opcao != 1 && opcao != 2 && opcao != 3 && opcao != 4 && opcao != 5 && opcao != 0)
+                {
+                    printf("\nOpção inválida!\n");
+
+                    transicao();
+
+                    visualizarItens();
+                    printf("\nDigite uma opção válida:\n");
+                    scanf("%d", &opcao);
+                    getchar();
+                }
             }
             else
             {
                 if(estoqueItens[0] == 0 && estoqueItens[1] == 0 && estoqueItens[2] == 0 && estoqueItens[3] == 0 && estoqueItens[4] == 0)
                 {
-                    printf("\nQuantidade em estoque insuficiente para venda. Chamando Menu!!\n");
+                    printf("\nQuantidade em estoque insuficiente para venda. Voltando ao menu principal.\n");
                     delay(1000);
                     break;
                 }
                 else
                 {
-                    printf("\nQuantidade inválida ou insuficiente. Deseja voltar ao início da venda? S/N:\n");
-                    scanf("%c", &resposta);
-                    getchar();
-
-                    if(resposta == 'n' || resposta == 'N')
+                    while(opcao == 0)
                     {
-                        printf("\nChama Menu!!\n");
-                        break;
+                        printf("\nOpção inválida!\n");
+
+                        transicao();
+
+                        visualizarItens();
+                        printf("\nDigite uma opção válida:\n");
+                        scanf("%d", &opcao);
+                        getchar();
                     }
                 }
             }
-        }
-
-        if(resposta == 'n' || resposta == 'N')
-        {
-            printf("\nChama Menu!!\n");
-            break;
         }
 
         if(estoqueItens[0] != 0 || estoqueItens[1]!= 0 || estoqueItens[2] != 0 || estoqueItens[3] != 0 || estoqueItens[4] != 0)
@@ -391,7 +389,7 @@ void realizarVenda()
 
             while(quantidade > estoqueItens[opcao - 1])
             {
-                printf("\nQuantidade digitada é superior à quantidade em estoque.Digite uma quantidade válida:\n");
+                printf("\nQuantidade digitada é superior à quantidade em estoque. Digite uma quantidade válida:\n");
                 scanf("%f", &quantidade);
                 delay(1000);
             }
@@ -458,15 +456,23 @@ void realizarVenda()
 
             if(estoqueItens[0] == 0 && estoqueItens[1] == 0 && estoqueItens[2] == 0 && estoqueItens[3] == 0 && estoqueItens[4] == 0)
             {
-                delay(1500);
-                printf("\nTodo o estoque da loja foi vendido. Retornando ao menu principal.\n");
-                resposta = 1;
-                delay(1500);
-                // Retornar ao menu inicial
+                if(quantVendida[0] == 0 && quantVendida[1] == 0 && quantVendida[2] == 0 && quantVendida[3] == 0 && quantVendida[4] == 0)
+                {
+                    delay(1500);
+                    printf("\nTodo o estoque da loja foi vendido. Retornando ao menu principal.\n");
+                    resposta = 1;
+                    delay(1500);
+                }
+                else
+                {
+                    delay(1500);
+                    printf("\nTodo o estoque da loja foi vendido. Finalizando venda.\n");
+                }
             }
             else
             {
-                printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
+                // Vender outro produto ou finalizar a venda?
+                printf("\nGostaria de vender outro produto(1) ou finalizar venda(2) ?\n");
                 scanf("%d", &retorno);
 
                 if(retorno == 1)
@@ -476,9 +482,12 @@ void realizarVenda()
                 }
                 else if(retorno == 2)
                 {
-                    printf("\nRetornando ao menu principal.\n");
+
+                    exibeSubtotalOrdenado(subtotalUnitario);
+                    /*
+                    int formaPagto = selecionaFormaPagamento();
                     transicao();
-                    // Retornar ao menu inicial
+                    */
                 }
                 else
                 {
@@ -488,6 +497,7 @@ void realizarVenda()
                         delay(1500);
                         limparTela();
 
+                        // Vender outro produto ou finalizar a venda (caso haja itens vendidos)?
                         printf("\nGostaria de vender outro produto(1) ou voltar para o menu principal(2) ?\n");
                         scanf("%d", &retorno);
 
@@ -504,6 +514,63 @@ void realizarVenda()
         else
         {
             break;
+        }
+    }
+}
+
+void exibeSubtotalOrdenado(float arraySubtotal[])
+{
+    ordenaItensSubtotal(arraySubtotal);
+
+    printf("\n\t\t\t\tNome do item\t\tSubtotal\n");
+
+    for(int i = 0; i < 5; i++)
+    {
+        if(arraySubtotal[i] > 0.0)
+        {
+            switch(ordemProdutos[i])
+            {
+            case 1:
+                printf("\t\t\t\t%s\t\tR$ %.2f\n", produtoOpcao1, arraySubtotal[i]);
+                break;
+            case 2:
+                printf("\t\t\t\t%s\t\tR$ %.2f\n", produtoOpcao2, arraySubtotal[i]);
+                break;
+            case 3:
+                printf("\t\t\t\t%s\t\tR$ %.2f\n", produtoOpcao3, arraySubtotal[i]);
+                break;
+            case 4:
+                printf("\t\t\t\t%s\t\tR$ %.2f\n", produtoOpcao4, arraySubtotal[i]);
+                break;
+            case 5:
+                printf("\t\t\t\t%s\t\tR$ %.2f\n", produtoOpcao5, arraySubtotal[i]);
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void ordenaItensSubtotal(float arraySubtotal[])
+{
+    float nroAuxiliar, nroAuxiliar2;
+
+    for(int contador = 1; contador < 5; contador++)
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            if(arraySubtotal[i] < arraySubtotal[i + 1])
+            {
+                nroAuxiliar = arraySubtotal[i];
+                nroAuxiliar2 = ordemProdutos[i];
+
+                arraySubtotal[i] = arraySubtotal[i + 1];
+                ordemProdutos[i] = ordemProdutos[i + 1];
+
+                arraySubtotal[i + 1] = nroAuxiliar;
+                ordemProdutos[i + 1] = nroAuxiliar2;
+            }
         }
     }
 }
@@ -565,7 +632,6 @@ void transicao()
 
 /*
     // Cálculo do subtotal
-    // subtotal = escolherItemMenu();
 
     if(subtotal[0] != 0.0 || subtotal[1] != 0.0 || subtotal[2] != 0.0 || subtotal[3] != 0.0 || subtotal[4] != 0.0)
     {
@@ -659,39 +725,6 @@ void transicao()
         }
         printf("\nO total e R$ %.2f", subtotal);
     }
-
-
-
-
-    float *escolherItemMenu()
-{
-}
-
-float  * ordenaItensSubtotal(float * arraySubtotal)
-{
-    float nroAuxiliar, nroAuxiliar2;
-    int contador;
-
-    for(contador = 1; contador < 5; contador++)
-    {
-        for(int i = 0; i < 5; i++)
-        {
-            if(arraySubtotal[i] < arraySubtotal[i + 1])
-            {
-                nroAuxiliar = arraySubtotal[i];
-                nroAuxiliar2 = ordemProdutos[i];
-
-                arraySubtotal[i] = arraySubtotal[i + 1];
-                ordemProdutos[i] = ordemProdutos[i + 1];
-
-                arraySubtotal[i + 1] = nroAuxiliar;
-                ordemProdutos[i + 1] = nroAuxiliar2;
-            }
-        }
-    }
-
-    return arraySubtotal;
-}
 
 void mostraSubtotal(float *arraySubtotalOrdenado)
 {
