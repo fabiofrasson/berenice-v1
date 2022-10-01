@@ -34,6 +34,7 @@ void saudacao();
 void mostrarMenu();
 int escolherItemMenu();
 int chamaMenu();
+void visualizarItens();
 void visualizarItensCadastrarEstoque();
 void visualizarItensVisualizarEstoque();
 void cadastrarEstoque();
@@ -70,7 +71,6 @@ int main()
     while (retornaInicio == true)
     {
         saudacao();
-
 
         // Mostrar o menu
         mostrarMenu();
@@ -130,8 +130,17 @@ int escolherItemMenu()
         printf("Erro: Opção inválida. Por favor, digite uma opção válida:\n");
         scanf("%d", &resposta);
     }
-
     return resposta;
+}
+
+void visualizarItens()
+{
+    printf("\n\t\t\t\tItem (Código)\t\tNome do item\t\tValor (unidade)\t\tEstoque\n");
+    printf("\t\t\t\t1\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao1, precoProduto1, estoqueItens[0]);
+    printf("\t\t\t\t2\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao2, precoProduto2, estoqueItens[1]);
+    printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
+    printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
+    printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
 }
 
 void visualizarItensVisualizarEstoque()
@@ -145,7 +154,6 @@ void visualizarItensVisualizarEstoque()
         printf("\t\t\t\t3\t\t\t%s\t\tR$ %.2f\t\t\t%d\n", produtoOpcao3, precoProduto3, estoqueItens[2]);
         printf("\t\t\t\t4\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao4, precoProduto4, estoqueItens[3]);
         printf("\t\t\t\t5\t\t\t%s\t\t\tR$ %.2f\t\t\t%d\n", produtoOpcao5, precoProduto5, estoqueItens[4]);
-
 
         printf("\n\nPressione 1 para voltar ao menu principal.\n");
         scanf("%d", &numero);
@@ -250,7 +258,6 @@ bool verificarEstoque(int codProd, int quant)
         printf("\nEstoque insuficiente para venda!");
         return false;
     }
-
     return true;
 }
 
@@ -273,7 +280,7 @@ void realizarVenda()
 
             if(contador == 0)
             {
-                visualizarItensVisualizarEstoque();
+                visualizarItens();
                 contador++;
             }
             else
@@ -282,7 +289,7 @@ void realizarVenda()
 
                 delay(500);
 
-                visualizarItensVisualizarEstoque();
+                visualizarItens();
             }
 
             printf("\nDigite um código de 1 a 5 para selecionar um produto ou 0 para sair: \n");
@@ -298,7 +305,7 @@ void realizarVenda()
 
                 limparTela();
 
-                visualizarItensVisualizarEstoque();
+                visualizarItens();
                 printf("\nDigite uma opção válida:\n");
                 scanf("%d", &opcao);
                 getchar();
@@ -362,6 +369,7 @@ void realizarVenda()
                 }
             }
         }
+
         if(resposta == 'n' || resposta == 'N')
         {
             printf("\nChama Menu!!\n");
@@ -469,6 +477,7 @@ void realizarVenda()
                 else if(retorno == 2)
                 {
                     printf("\nRetornando ao menu principal.\n");
+                    transicao();
                     // Retornar ao menu inicial
                 }
                 else
