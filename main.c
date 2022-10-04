@@ -26,6 +26,16 @@
 #define precoProduto4 4.5
 #define precoProduto5 3.25
 
+// Constantes dos descontos/acréscimos
+#define desconto1 5
+#define desconto2 8
+#define desconto3 10
+#define desconto4 18
+#define percentual1 0.05
+#define percentual2 0.08
+#define percentual3 0.1
+#define percentual4 0.18
+
 // Constante de valor zerado
 #define valorZerado 0.0
 
@@ -51,6 +61,7 @@ bool verificarEstoque(int codProduto, int quant);
 void realizarVenda(); // ?
 void exibeSubtotalOrdenado(float arraySubtotal[]);
 void ordenaItensSubtotal(float arraySubtotal[]);
+void ordenaQtdeVendida(int arrayQtdeVendida[]);
 int verificarParcelasPagtoPrazo();
 void calculaTotalPorFormaPagamento(int opcao);
 void gerarRelatorio();
@@ -98,8 +109,10 @@ int main()
         }
         else // Sair
         {
-
-            transicao();
+            if(subtotalUnitario[0] > 0 || subtotalUnitario[1] > 0 || subtotalUnitario[2] > 0 || subtotalUnitario[3] > 0 || subtotalUnitario[4] > 0)
+            {
+                gerarRelatorio();
+            }
             return 0;
         }
     }
@@ -538,7 +551,7 @@ void realizarVenda()
             break;
         }
     }
-
+    /*
     // Zerar as variáveis subtotal e subtotalUnitario[]
     subtotal = valorZerado;
 
@@ -546,6 +559,7 @@ void realizarVenda()
     {
         subtotalUnitario[i] = valorZerado;
     }
+    */
 }
 
 void exibeSubtotalOrdenado(float arraySubtotal[])
@@ -586,7 +600,8 @@ void exibeSubtotalOrdenado(float arraySubtotal[])
         }
 
     }
-    printf("\t\t\t\t_________________________________");
+    // printf("\t\t\t\t_________________________________");
+    printf("\t\t\t\t---------------------------------");
     printf("\n\t\t\t\t%s\t\tR$ %.2f", subtotalSt, subtotal);
 }
 
@@ -608,6 +623,26 @@ void ordenaItensSubtotal(float arraySubtotal[])
 
                 arraySubtotal[i + 1] = nroAuxiliar;
                 ordemProdutos[i + 1] = nroAuxiliar2;
+            }
+        }
+    }
+}
+
+void ordenaQtdeVendida(int arrayQtdeVendida[])
+{
+    int nroAuxiliar;
+
+    for(int contador = 1; contador < tamanhoArray; contador++)
+    {
+        for(int i = 0; i < tamanhoArray; i++)
+        {
+            if(quantVendida[i] < quantVendida[i + 1])
+            {
+                nroAuxiliar = quantVendida[i];
+
+                quantVendida[i] = quantVendida[i + 1];
+
+                quantVendida[i + 1] = nroAuxiliar;
             }
         }
     }
@@ -647,15 +682,21 @@ void calculaTotalPorFormaPagamento(int opcao)
     {
         if(subtotal > 0 && subtotal <= 50) // Se subtotal for entre 0 e 50
         {
-            subtotal -= subtotal * 0.05; //Desconto de 5% aplicado ao valor final
+            subtotal -= subtotal * percentual1; //Desconto de 5% aplicado ao valor final
+            printf("\nDesconto de %d%% aplicado!\n", desconto1);
+            delay(1500);
         }
         else if(subtotal > 50 && subtotal < 100)//Se o subtotal for entre 50 e 100
         {
-            subtotal -= subtotal * 0.1;//Desconto de 10% aplicado ao valor final
+            subtotal -= subtotal * percentual3;//Desconto de 10% aplicado ao valor final
+            printf("\nDesconto de %d%% aplicado!\n", desconto3);
+            delay(1500);
         }
         else
         {
-            subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
+            subtotal -= subtotal * percentual4;// Desconto de 18% aplicado ao valor final
+            printf("\nDesconto de %d%% aplicado!\n", desconto4);
+            delay(1500);
         }
         printf("\nO total é R$ %.2f", subtotal);
 
@@ -668,18 +709,52 @@ void calculaTotalPorFormaPagamento(int opcao)
 
         if(parcelas <= 3)
         {
-            subtotal += subtotal * 0.05;
+            subtotal += subtotal * percentual1;
+            printf("\nAcréscimo de %d%% aplicado.\n", desconto1);
+            delay(1500);
         }
         else
         {
-            subtotal += subtotal * 0.08;
+            subtotal += subtotal * percentual2;
+            printf("\nAcréscimo de %d%% aplicado.\n", desconto2);
+            delay(1500);
         }
         printf("\nO total é R$ %.2f", subtotal);
     }
 }
 
-void gerarRelatorio() {
+void gerarRelatorio()
+{
+    ordenaQtdeVendida(quantVendida);
 
+    printf("\n\t\t\t\tNome do produto\t\tQuantidade\n");
+
+    for(int i = 0; i < tamanhoArray; i++)
+    {
+        if(quantVendida[i] > 0)
+        {
+            switch(ordemProdutos[i])
+            {
+            case 1:
+                printf("\t\t\t\t%s\t\t%d unidade(s)\n", produtoOpcao1, quantVendida[i]);
+                break;
+            case 2:
+                printf("\t\t\t\t%s\t\t%d unidade(s)\n", produtoOpcao2, quantVendida[i]);
+                break;
+            case 3:
+                printf("\t\t\t\t%s\t\t%d unidade(s)\n", produtoOpcao3, quantVendida[i]);
+                break;
+            case 4:
+                printf("\t\t\t\t%s\t\t\t%d unidade(s)\n", produtoOpcao4, quantVendida[i]);
+                break;
+            case 5:
+                printf("\t\t\t\t%s\t\t\t%d unidade (s)\n", produtoOpcao5, quantVendida[i]);
+                break;
+            default:
+                break;
+            }
+        }
+    }
 }
 
 int verificarParcelasPagtoPrazo()
