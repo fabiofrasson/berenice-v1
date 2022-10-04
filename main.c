@@ -26,12 +26,16 @@
 #define precoProduto4 4.5
 #define precoProduto5 3.25
 
+// Constante de valor zerado
+#define valorZerado 0.0
+
+// Constante string Subtotal
 const char subtotalSt[] = "Subtotal";
 
 // Constante do tamanho dos arrays
 #define tamanhoArray 5
 
-// Constante da função de transição
+// Constante de parâmetro da função de transição
 #define segundos 750
 
 // Métodos
@@ -49,6 +53,7 @@ void exibeSubtotalOrdenado(float arraySubtotal[]);
 void ordenaItensSubtotal(float arraySubtotal[]);
 int verificarParcelasPagtoPrazo();
 void calculaTotalPorFormaPagamento(int opcao);
+void gerarRelatorio();
 void delay(int milliseconds);
 void limparTela();
 void transicao();
@@ -69,10 +74,6 @@ float subtotalUnitario[tamanhoArray];
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-
-    float valorTroco, parcelas, valorParcela;
-    char troco;
-    int formaPagamento;
 
     while (retornaInicio == true)
     {
@@ -97,6 +98,8 @@ int main()
         }
         else // Sair
         {
+
+            transicao();
             return 0;
         }
     }
@@ -125,7 +128,7 @@ int escolherItemMenu()
 {
     int resposta = 0;
 
-    printf("Selecione um código do menu acima para interagir com o sistema:\n");
+    printf("\nSelecione um código do menu acima para interagir com o sistema:\n");
     scanf("%d", &resposta);
 
     while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4)
@@ -193,6 +196,8 @@ void cadastrarEstoque()
     {
         printf("\nCódigo de item inválido.\n");
 
+        transicao();
+
         visualizarItensCadastrarEstoque();
 
         printf("\nDigite um código de item válido:\n");
@@ -234,21 +239,27 @@ void cadastrarEstoque()
     {
     case 1:
         printf("\nEstoque do item %s atualizado em %d unidade(s).\n", produtoOpcao1, quantidade);
+        delay(1000);
         break;
     case 2:
         printf("\nEstoque do item %s atualizado em %d unidade(s).\n", produtoOpcao2, quantidade);
+        delay(1000);
         break;
     case 3:
         printf("\nEstoque do item %s atualizado em %d unidade(s).\n", produtoOpcao3, quantidade);
+        delay(1000);
         break;
     case 4:
         printf("\nEstoque do item %s atualizado em %d unidade(s).\n", produtoOpcao4, quantidade);
+        delay(1000);
         break;
     case 5:
         printf("\nEstoque do item %s atualizado em %d unidade(s).\n", produtoOpcao5, quantidade);
+        delay(1000);
         break;
     default:
         printf("\nEstoque atualizado com sucesso!\n");
+        delay(1000);
         break;
     }
     transicao();
@@ -527,6 +538,14 @@ void realizarVenda()
             break;
         }
     }
+
+    // Zerar as variáveis subtotal e subtotalUnitario[]
+    subtotal = valorZerado;
+
+    for(int i = 0; i < tamanhoArray; i++)
+    {
+        subtotalUnitario[i] = valorZerado;
+    }
 }
 
 void exibeSubtotalOrdenado(float arraySubtotal[])
@@ -538,7 +557,7 @@ void exibeSubtotalOrdenado(float arraySubtotal[])
         subtotal += subtotalUnitario[i];
     }
 
-    printf("\n\t\t\t\tNome do item\t\tSubtotal\n");
+    printf("\n\t\t\t\tNome do item\t\tValor\n");
 
     for(int i = 0; i < tamanhoArray; i++)
     {
@@ -567,7 +586,8 @@ void exibeSubtotalOrdenado(float arraySubtotal[])
         }
 
     }
-    printf("\t\t\t\t%s\t\tR$ %.2f", subtotalSt, subtotal);
+    printf("\t\t\t\t_________________________________");
+    printf("\n\t\t\t\t%s\t\tR$ %.2f", subtotalSt, subtotal);
 }
 
 void ordenaItensSubtotal(float arraySubtotal[])
@@ -637,7 +657,7 @@ void calculaTotalPorFormaPagamento(int opcao)
         {
             subtotal -= subtotal * 0.18;// Desconto de 18% aplicado ao valor final
         }
-        printf("\nO total e R$ %.2f", subtotal);
+        printf("\nO total é R$ %.2f", subtotal);
 
         // Chama função de troco
         funcaoTroco();
@@ -654,8 +674,12 @@ void calculaTotalPorFormaPagamento(int opcao)
         {
             subtotal += subtotal * 0.08;
         }
+        printf("\nO total é R$ %.2f", subtotal);
     }
-    printf("\nO total e R$ %.2f", subtotal);
+}
+
+void gerarRelatorio() {
+
 }
 
 int verificarParcelasPagtoPrazo()
@@ -705,7 +729,7 @@ void funcaoTroco()
     {
         float volta;
 
-        printf("\nTroco para quanto?\n");
+        printf("\nQual o valor pago pelo cliente?\n");
         scanf("%f", &valorTroco);
         getchar();
 
@@ -717,7 +741,7 @@ void funcaoTroco()
         {
             while(valorTroco < subtotal)
             {
-                printf("Valor digitado insuficiente. Digite uma quantia maior.");
+                printf("\nValor digitado insuficiente. Digite uma quantia maior.");
                 scanf("%f", &valorTroco);
             }
             volta = valorTroco - subtotal;
@@ -727,7 +751,7 @@ void funcaoTroco()
     }
     else // Validação caso a resposta seja N ou n para troco
     {
-        printf("Troco não é necessário.");
+        printf("\nTroco não é necessário.");
     }
 }
 
